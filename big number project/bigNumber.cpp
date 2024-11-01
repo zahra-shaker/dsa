@@ -5,8 +5,10 @@ class bigNumber {
   private:
     string number;
   public:
-    bigNumber();
-    bigNumber(const string&);
+    bigNumber() {
+      number="0" ; }
+    bigNumber(const string& num) {
+      number = num; }
     bigNumber add (const bigNumber&);
     bigNumber subtract (const bigNumber&);
     friend bigNumber operator<< (bigNumber);
