@@ -33,3 +33,9 @@ class bigNumber {
     friend bigNumber operator<< (bigNumber);
     friend bigNumber operator>> (bigNumber);
 } ;
+
+bigNumber operator<< (bigNumber num) {
+  for(int i=0; i<num.number.length(); i++) {
+    num[i-1] = num[i] ; }
+  num[num.number.length()-1] = 0;
+  return result; }
