@@ -39,3 +39,9 @@ bigNumber operator<< (bigNumber num) {
     num[i-1] = num[i] ; }
   num[num.number.length()-1] = 0;
   return result; }
+
+bigNumber operator>> (bigNumber num) {
+  for(int i=num.number.length()-1; i>=0; i--) {
+    num[i+1] = num[i] ; }
+  num[0] = 0;
+  return result; }
