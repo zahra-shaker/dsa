@@ -3,45 +3,73 @@ using namespace std;
 
 class bigNumber {
   private:
-    string number;
+    string value;
+    bool isNegative;
   public:
     bigNumber() {
-      number="0" ; }
+      value="0" ;
+      isNegative=false; }
     bigNumber(const string& num) {
-      number = num; }
+      if(num[0]=='+') {
+        isNegative==false; }
+      else{
+        isNegative==true;}
+      num<< ;
+      value = num; }
     bigNumber add (const bigNumber& numOther) {
       string result="0";
-      int lngth=number.length();
-      if(numOther.number.length() > lngth) 
-        lngth=numOther.number.length();
-      for(int i=lngth-1; i>-1 ; i--) {
-        result[i] = (number[i] + numOther.number[i])%10 ;
-        result[i-1] += (number[i] + numOther.number[i])/10 ; }
+      int lngth=value.length();
+      if(numOther.value.length() > lngth) 
+        lngth=numOther.value.length();
+      if(isNegative == numOther.isNegative) {
+      for(int i=lngth-1; i>0 ; i--) {
+        result[i] = (value[i] + numOther.value[i])%10 ;
+        result[i-1] += (value[i] + numOther.value[i])/10 ; }
+      if(isNegative==true) {
+        result[0] = '-' ;
+        result.isNegative = true; }
+      else{
+        result[0] = '+' ;
+        result.isNegative = false; } 
+      }
+      else if( isNegative && !numOther.isNegative) {
+        result = numOther.subtract(*this) ; }
+      else {
+        result = *this.subtract(numOther);
         return result;
     }
     bigNumber subtract (const bigNumber& numOther) {
     string result="0";
-    int lngth=number.length();
-    if(numOther.number.length() > lngth)
-      lngth=numOther.number.length();
-    for(int i=length-1; i>-1; i--) {
-      if(numOther.number[i] > number[i] ) {
-        number[i]+10;
-        number[i-1]-1; }
-      result[i] = number[i] - numOther.number[i] ; }
+    int lngth=value.length();
+    if(numOther.value.length() > lngth)
+      lngth=numOther.value.length();
+    if (isNegative == numOther.isNegative ) {
+    for(int i=length-1; i>0; i--) {
+      if(numOther.value[i] > value[i] ) {
+        value[i]+10;
+        value[i-1]-1; }
+      result[i] = value[i] - numOther.value[i] ; }
+    }
+    if( !isNegative && numOther.isNegative) {
+      result = numOther.add(*this) ; 
+      result[0]='+' ;
+      result.isNegative = false ; }
+    if( isNegative && !numOther.isNegative ) {
+      result = numOther.add(*this) ; 
+      result[0]='-' ;true ; } 
     return result; }
     friend bigNumber operator<< (bigNumber);
     friend bigNumber operator>> (bigNumber);
 } ;
 
 bigNumber operator<< (bigNumber num) {
-  for(int i=0; i<num.number.length(); i++) {
+  for(int i=0; i<num.value.length(); i++) {
     num[i-1] = num[i] ; }
-  num[num.number.length()-1] = 0;
+  num[num.value.length()-1] = 0;
   return result; }
 
 bigNumber operator>> (bigNumber num) {
-  for(int i=num.number.length()-1; i>=0; i--) {
+  for(int i=num.value.length()-1; i>=0; i--) {
     num[i+1] = num[i] ; }
   num[0] = 0;
   return result; }
