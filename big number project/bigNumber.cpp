@@ -58,18 +58,20 @@ class bigNumber {
       result = numOther.add(*this) ; 
       result[0]='-' ;true ; } 
     return result; }
-    friend bigNumber operator<< (bigNumber);
-    friend bigNumber operator>> (bigNumber);
+    friend bigNumber operator<< (int);
+    friend bigNumber operator>> (int);
 } ;
 
-bigNumber operator<< (bigNumber num) {
-  for(int i=0; i<num.value.length(); i++) {
-    num[i-1] = num[i] ; }
-  num[num.value.length()-1] = 0;
-  return result; }
+bigNumber :: bigNumber operator<< (int num) {
+  for(int i=0; i<num; i++) {
+    for(int l=0; l<value.length(); l++) { 
+    value[l-1] = value[l] ; }
+  value[value.length()-1] = '0'; }
+  return *this; }
 
-bigNumber operator>> (bigNumber num) {
-  for(int i=num.value.length()-1; i>=0; i--) {
-    num[i+1] = num[i] ; }
-  num[0] = 0;
-  return result; }
+bigNumber :: bigNumber operator>> (int num) {
+  for(int i=0; i<num; i++) {
+    for(int l=value.length()-1; l>=0; l--) {
+    value[l+1] = value[l] ; }
+    value[0]='0';}
+    return *this; }
