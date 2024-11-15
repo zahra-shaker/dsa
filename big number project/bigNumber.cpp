@@ -6,70 +6,114 @@ class bigNumber {
     string value;
     bool isNegative;
   public:
-    bigNumber() {
+  bigNumber();
+  bigNumber(const string&);
+  bigNumber add (const bigNumber&);
+  bigNumber subtract (const bigNumber&);
+  string getVal ();
+  char getValIndx(int) ;
+  bool getB () ;
+  void setVal (string);
+  void setValIndx(char,int) ;
+  void setB (bool) ;
+  bigNumber operator<< (int);
+  bigNumber operator>> (int);
+  void operator= (bigNumber) ;
+} ;
+
+bigNumber :: bigNumber () {
       value="0" ;
       isNegative=false; }
-    bigNumber(const string& num) {
+bigNumber :: bigNumber(const string& num) {
       if(num[0]=='+') {
         isNegative==false; }
       else{
         isNegative==true;}
-      num<< ;
-      value = num; }
-    bigNumber add (const bigNumber& numOther) {
-      string result="0";
+      for(int i=0; i<num.length()-1 ; i++) {
+        value[i] = num[i+1] ;
+      }
+      }
+
+string bigNumber :: getVal() {
+  return value;
+}
+
+char bigNumber :: getValIndx (int i) {
+  return value[i] ;
+}
+
+bool bigNumber ::getB() {
+  return isNegative;
+} 
+
+void bigNumber :: setVal (string s) {
+  value = s;
+}
+
+void bigNumber :: setB (bool b) {
+  isNegative = b ;
+}
+
+void bigNumber ::setValIndx(char c, int i) {
+  value[i] = c ;
+}
+
+void bigNumber :: operator= (bigNumber b) {
+  value = b.value;
+  isNegative = b.isNegative ;
+}
+
+bigNumber bigNumber:: add (const bigNumber& numOther) {
+      bigNumber result;
       int lngth=value.length();
       if(numOther.value.length() > lngth) 
         lngth=numOther.value.length();
       if(isNegative == numOther.isNegative) {
       for(int i=lngth-1; i>0 ; i--) {
-        result[i] = (value[i] + numOther.value[i])%10 ;
-        result[i-1] += (value[i] + numOther.value[i])/10 ; }
+        result.setValIndx((value[i] + numOther.value[i])%10 , i);
+        result.setValIndx((value[i] + numOther.value[i])/10 + getValIndx(i-1), i-1) ; }
       if(isNegative==true) {
-        result[0] = '-' ;
+        result.setValIndx('-', 0) ;
         result.isNegative = true; }
       else{
-        result[0] = '+' ;
+        result.setValIndx('+',0) ;
         result.isNegative = false; } 
       }
       else if( isNegative && !numOther.isNegative) {
         result = numOther.subtract(*this) ; }
       else {
-        result = *this.subtract(numOther);
+        result = *this.subtract(numOther); }
         return result;
     }
-    bigNumber subtract (const bigNumber& numOther) {
-    string result="0";
+bigNumber bigNumber :: subtract (const bigNumber& numOther) {
+    bigNumber result;
     int lngth=value.length();
     if(numOther.value.length() > lngth)
       lngth=numOther.value.length();
     if (isNegative == numOther.isNegative ) {
-    for(int i=length-1; i>0; i--) {
+    for(int i=lngth-1; i>0; i--) {
       if(numOther.value[i] > value[i] ) {
         value[i]+10;
         value[i-1]-1; }
-      result[i] = value[i] - numOther.value[i] ; }
+      result.setValIndx(value[i] - numOther.value[i],i)  ; }
     }
     if( !isNegative && numOther.isNegative) {
       result = numOther.add(*this) ; 
-      result[0]='+' ;
+      result.setB(false) ;
       result.isNegative = false ; }
     if( isNegative && !numOther.isNegative ) {
       result = numOther.add(*this) ; 
-      result[0]='-' ;true ; } 
+      result.setB(true); }
     return result; }
-    friend bigNumber operator<< (int);
-    friend bigNumber operator>> (int);
-} ;
 
-bigNumber :: bigNumber operator<< (int num) {
+bigNumber bigNumber :: operator<< (int num) {
   for(int i=0; i<num; i++) {
     for(int l=0; l<value.length(); l++) { 
     value[l-1] = value[l] ; }
   value[value.length()-1] = '0'; }
   return *this; }
 
-bigNumber :: bigNumber operator>> (int num) {
+bigNumber bigNumber :: operator>> (int num) {
   for(int i=0; i<num; i++) {
     for(int l=value.length()-1; l>=0; l--) {
     value[l+1] = value[l] ; }
