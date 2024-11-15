@@ -8,8 +8,8 @@ class bigNumber {
   public:
   bigNumber();
   bigNumber(const string&);
-  bigNumber add (const bigNumber&);
-  bigNumber subtract (const bigNumber&);
+  bigNumber add (bigNumber);
+  bigNumber subtract (bigNumber);
   string getVal ();
   char getValIndx(int) ;
   bool getB () ;
@@ -19,6 +19,8 @@ class bigNumber {
   bigNumber operator<< (int);
   bigNumber operator>> (int);
   void operator= (bigNumber) ;
+  string multiplyByOne (int) ;
+  bigNumber multiply (bigNumber) ;
 } ;
 
 bigNumber :: bigNumber () {
@@ -63,7 +65,7 @@ void bigNumber :: operator= (bigNumber b) {
   isNegative = b.isNegative ;
 }
 
-bigNumber bigNumber:: add (const bigNumber& numOther) {
+bigNumber bigNumber:: add (bigNumber numOther) {
       bigNumber result;
       int lngth=value.length();
       if(numOther.value.length() > lngth) 
@@ -82,10 +84,10 @@ bigNumber bigNumber:: add (const bigNumber& numOther) {
       else if( isNegative && !numOther.isNegative) {
         result = numOther.subtract(*this) ; }
       else {
-        result = *this.subtract(numOther); }
+        result = this->subtract(numOther); }
         return result;
     }
-bigNumber bigNumber :: subtract (const bigNumber& numOther) {
+bigNumber bigNumber :: subtract (bigNumber numOther) {
     bigNumber result;
     int lngth=value.length();
     if(numOther.value.length() > lngth)
@@ -119,3 +121,22 @@ bigNumber bigNumber :: operator>> (int num) {
     value[l+1] = value[l] ; }
     value[0]='0';}
     return *this; }
+
+string bigNumber :: multiplyByOne (int j) {
+  string result;
+  for(int i=getVal().length()-1; i>=0; i--) {
+    result[i] += (value[i]*j) % 10;
+    result[i-1] += ( value[i]*j ) /10;
+  }
+  return result;
+}
+
+bigNumber bigNumber :: multiply ( bigNumber numOther) {
+  bigNumber result;
+  if(numOther.isNegative == isNegative) result.isNegative=false;
+  else result.isNegative=true;
+  for(int i=numOther.value.length()-1; i>=0; i--) {
+    result = result.add(this->multiplyByOne(numOther.value[i])) ;
+    numOther.setValIndx('0', i) ;
+  }
+}
