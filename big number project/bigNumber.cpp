@@ -21,6 +21,7 @@ class bigNumber {
   void operator= (bigNumber) ;
   string multiplyByOne (int) ;
   bigNumber multiply (bigNumber) ;
+  bigNumber power (int) ;
 } ;
 
 bigNumber :: bigNumber () {
@@ -139,4 +140,11 @@ bigNumber bigNumber :: multiply ( bigNumber numOther) {
     result = result.add(this->multiplyByOne(numOther.value[i])) ;
     numOther.setValIndx('0', i) ;
   }
+}
+
+bigNumber bigNumber :: power (int n) {
+  for (int i=0; i<n; i++) {
+    *this = multiply(*this) ;
+  }
+  return *this ;
 }
