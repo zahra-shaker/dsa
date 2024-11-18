@@ -24,7 +24,8 @@ class bigNumber {
   bigNumber multiply (bigNumber) ;
   bigNumber power (int) ;
   bigNumber fact ();
-  bigNumber division ()
+  bigNumber division ();
+  bigNumber karatsuba (bigNumber);
 } ;
 
 bigNumber :: bigNumber () {
@@ -168,4 +169,26 @@ bigNumber bigNumber :: fact() {
     this = this->subtract("1") ;
     return bNum.multiply(this->fact()) ;
   }
+  }
+
+  bigNumber bigNumber :: karatsuba (bigNumber numOther) {
+    bigNumber result;
+    int l1 = value.length();
+    int l2 = numOther.value.length();
+    if(l1==2 || l2==2) {
+      result = this->multiply(numOther) ;
+      return result;
+    }
+    bigNumber b1(value.substr(0,l1/2));
+    bigNumber b2(value.substr(l1/2+1; l1));
+    bigNumber c1(numOther.value.substr(0,l2/2));
+    bigNumber c2(numOther.value.substr(l2/2+1; l2));
+    bigNumber z1;
+    bigNumber z2;
+    bigNumber z3;
+    z1 = b1.karatsuba(c1); 
+    z2 = b2.karatsuba(c2);
+    z3 = (b1.add(b2)).karatsuba(c1.add(c2)) ;
+    result = (z1.multiply("10".pow(l1))).add(z3.subtract(z1.add(z2))).multiply("10".pow(l1/2)).add(z2) ;
+    return result;
   }
