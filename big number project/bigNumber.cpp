@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 class bigNumber {
@@ -22,6 +23,8 @@ class bigNumber {
   string multiplyByOne (int) ;
   bigNumber multiply (bigNumber) ;
   bigNumber power (int) ;
+  bigNumber fact ();
+  bigNumber division ()
 } ;
 
 bigNumber :: bigNumber () {
@@ -148,3 +151,21 @@ bigNumber bigNumber :: power (int n) {
   }
   return *this ;
 }
+
+bigNumber bigNumber :: fact() {
+  if (isNegative==true) return -1;
+  bool d = false;
+  if(value.length()<4) {
+    if(value[0]==1 && value[1]==0 && value[2]==0) d=true;
+    if(value[0]==0) d=true;
+  }
+  bigNumber result("+001");
+  if(!d) return -2;
+  else {
+    if(value=="001") return result;
+    bigNumber bNum;
+    bNum = this;
+    this = this->subtract("1") ;
+    return bNum.multiply(this->fact()) ;
+  }
+  }
