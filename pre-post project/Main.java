@@ -33,6 +33,24 @@ public class Main {
         }
     }
 
+    public class EmptyStackException extends RuntimeException {
+        public EmptyStackException() {
+            super();
+        }
+        public EmptyStackException(String msg) {
+            super(msg) ;
+        }
+    }
+
+    public class FullStackException extends RuntimeException {
+        public FullStackException() {
+            super();
+        }
+        public FullStackException(String msg) {
+            super(msg);
+        }
+    }
+
     static String inToPost(String Sinput) {
         
         return "";
