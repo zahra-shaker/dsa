@@ -1,5 +1,3 @@
-import java.util.EmptyStackException;
-
 public class Main {
     public class Stack{
         public int size = 100 ;
@@ -51,7 +49,40 @@ public class Main {
         }
     }
 
+    static boolean isOperator (char c) { 
+        return (c == '+' || c == '-' || c == '*' || c == '/' || c=='(' || c== ')' ) ;
+    }
+
+    static boolean Priority (char Cin, Character stTop) {
+        boolean result = false ;
+        if (Cin=='*' && stTop=='+') result=true ;
+        if (Cin=='*' && stTop=='-') result=true ;
+        if (Cin=='/' && stTop=='+') result=true ;
+        if (Cin=='/' && stTop=='-') result=true ;
+        if (Cin=='+' && stTop=='(') result=true ;
+        if (Cin=='-' && stTop=='(') result=true ;
+        if (Cin=='*' && stTop=='(') result=true ;
+        if (Cin=='/' && stTop=='(') result=true ;
+        if (Cin=='+' && stTop == null) result=true ;
+        if (Cin=='-' && stTop == null) result=true ;
+        if (Cin=='*' && stTop== null) result=true ;
+        if (Cin=='/' && stTop== null) result=true ;
+        return result;
+    }
     static String inToPost(String Sinput) {
+        int j = Sinput.length() ;
+        Stack stk ;
+        char[] post ;
+        post = new char[j] ;
+        for(int i=0; i<Sinput.length(); i++) {
+            char in = Sinput.charAt(i) ;
+            if (Character.isDigit(in)) post[j-1] = in ; 
+            if(isOperator(in)) {
+
+            }
+
+        }
+
         
         return "";
     }
